@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <!--
+        Customize this policy to fit your own app's needs. For more guidance, see:
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+        Some notes:
+            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                * Enable inline JS: add 'unsafe-inline' to default-src
+        -->
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="css/sweetalert.min.css">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <title>Hello World</title>
+        <style>
+        /* Move down content because we have a fixed navbar that is 50px tall */
+        body {
+          padding-top: 50px;
+          padding-bottom: 20px;
+        }
+        ul.dropdown-menu li {
+            margin-left: 20px;
+        }
+        .vuetable th.sortable:hover {
+            color: #2185d0;
+            cursor: pointer;
+        }
+        .vuetable-actions {
+            width: 11%;
+            padding: 12px 0px;
+            text-align: center;
+        }
+        .vuetable-actions > button {
+          padding: 3px 6px;
+          margin-right: 4px;
+        }
+        .vuetable-pagination {
+        }
+        .vuetable-pagination-info {
+            float: left;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+        ul.pagination {
+          margin: 0px;
+        }
+        .vuetable-pagination-component {
+          float: right;
+        }
+        [v-cloak] {
+            display: none;
+        }
+        .highlight {
+            background-color: yellow;
+        }
+    </style>
+    </head>
+    <body>
+        <!-- <div class="app">
+            <h1>Apache Cordova test</h1>
+            <div id="deviceready" class="blink">
+                <p class="event listening">Connecting to Device</p>
+                <p class="event received">Device is Ready</p>
+            </div>
+        </div> -->
+        <nav class="app navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Project name</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <form class="navbar-form navbar-right">
+                        <div class="form-group">
+                            <input type="text" placeholder="Email" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" placeholder="Password" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-success">Sign in</button>
+                    </form>
+                </div><!--/.navbar-collapse -->
+            </div>
+        </nav>
+
+        <div id="app" class="container">
+          <!-- Example row of columns -->
+            <h2 class="sub-header">List of Users</h2>
+            <hr>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-inline form-group">
+                        <label>Search:</label>
+                        <input v-model="searchFor" class="form-control" @keyup.enter="setFilter">
+                        <button class="btn btn-primary" @click="setFilter">Go</button>
+                        <button class="btn btn-default" @click="resetFilter">Reset</button>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="dropdown pull-right">
+                        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            <i class="glyphicon glyphicon-cog"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li v-for="field in fields">
+                                <span class="checkbox">
+                                    <label>
+                                        <input type="checkbox" v-model="field.visible">
+                                        {{ field.title == '' ? field.name.replace('__', '') : field.title | capitalize }}
+                                    </label>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <vuetable
+                    api-url="http://vuetable.ratiw.net/api/users"
+                    pagination-path=""
+                    :fields="fields"
+                    :sort-order="sortOrder"
+                    table-class="table table-bordered table-striped table-hover"
+                    ascending-icon="glyphicon glyphicon-chevron-up"
+                    descending-icon="glyphicon glyphicon-chevron-down"
+                    pagination-class=""
+                    pagination-info-class=""
+                    pagination-component-class=""
+                    pagination-component="vuetable-pagination-bootstrap"
+                    :item-actions="itemActions"
+                    :append-params="moreParams"
+                ></vuetable>
+            </div>
+
+            <template id="vuetable-pagination-bootstrap-template">
+                <nav>
+                    <ul class="pagination">
+                        <li class="{{isOnFirstPage ? disabledClass : ''}}">
+                            <a @click="loadPage('prev')"><i class="glyphicon glyphicon-chevron-left"></i></a>
+                        </li>
+                        <template v-for="n in totalPage">
+                            <li class="{{isCurrentPage(n+1) ? ' active' : ''}}">
+                                <a @click="loadPage(n+1)"> {{ n+1 }}</a>
+                            </li>
+                        </template>
+                        <li class="{{isOnLastPage ? disabledClass : ''}}">
+                            <a @click="loadPage('next')"><i class="glyphicon glyphicon-chevron-right"></i></a>
+                        </li>
+                    </ul>
+                </nav>
+            </template>
+
+            <hr>
+
+            <footer>
+                <p>&copy; 2015 Company, Inc.</p>
+            </footer>
+
+        </div> <!-- /container -->
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+    </body>
+</html>
