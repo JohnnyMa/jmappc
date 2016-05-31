@@ -9,6 +9,9 @@
     "installed_plugins": {
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.example.jmappc"
+        },
+        "cordova-plugin-screen-orientation": {
+            "PACKAGE_NAME": "com.example.jmappc"
         }
     },
     "dependent_plugins": {}

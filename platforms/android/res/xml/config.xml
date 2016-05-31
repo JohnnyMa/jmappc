@@ -5,8 +5,11 @@
         <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
         <param name="onload" value="true" />
     </feature>
+    <feature name="YoikScreenOrientation">
+        <param name="android-package" value="net.yoik.cordova.plugins.screenorientation.YoikScreenOrientation" />
+    </feature>
     <allow-intent href="market:*" />
-    <name>HelloWorld</name>
+    <name>Cordova MVP</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
     </description>

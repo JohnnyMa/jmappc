@@ -32,18 +32,76 @@
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
         <link rel="stylesheet" type="text/css" href="css/index.css">
-        <title>Hello World</title>
+        <style type="text/css">
+    body {
+      font: 10px sans-serif;
+    }
+
+    .axis path,
+    .axis line {
+      fill: none;
+      stroke: #000;
+      shape-rendering: crispEdges;
+    }
+
+    .x.axis path {
+      display: none;
+    }
+
+    .line {
+      fill: none;
+      stroke: steelblue;
+      stroke-width: 1.5px;
+    }
+
+    text.tips-text {
+      pointer-events: none;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .ruler .line {
+      stroke-width: 1px;
+      stroke-dasharray: 3.94529, 2.7617;
+      stroke-opacity: 0.5;
+      stroke: #000;
+    }
+
+    rect.interactive-panel {
+      fill: none;
+      pointer-events: all;
+    }
+
+    .ruler.vertical {
+      cursor: ew-resize;
+    }
+
+    .ruler.horizontal {
+      cursor: ns-resize;
+    }
+  </style>
+        <title>Cordova MVP</title>
     </head>
     <body>
-        <div class="app">
-            <h1>Apache Cordova test</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
+        <div id="app"></div>
+
+
+        <div class="resources-report">
+            <div class="line-chart">
+              <div class="cpu-usage"></div>
+              <div class="disk-read-write"></div>
+              <div class="network-input-output"></div>
             </div>
+            <div class="plot-chart"></div>
         </div>
+
         <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/lib/jquery.min.js"></script>
+        <script type="text/javascript" src="js/lib/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/build.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
     </body>
 </html>

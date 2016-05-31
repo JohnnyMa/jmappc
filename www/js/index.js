@@ -47,6 +47,12 @@ var app = {
         console.log('Received Event: ' + id);
         console.log('aaa...');
         alert('test info');
+
+        // allow user rotate 
+        // screen.unlockOrientation();
+        screen.lockOrientation('landscape');
+        // access current orientation 
+        console.log('Orientation is ' + screen.orientation);
     }
 };
 

@@ -16,6 +16,10 @@
         <param name="onload" value="true" />
     </feature>
     <name>HelloWorld</name>
+    <feature name="YoikScreenOrientation">
+        <param name="ios-package" value="YoikScreenOrientation" />
+    </feature>
+    <name>Cordova MVP</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
     </description>
